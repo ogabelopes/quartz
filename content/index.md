@@ -1,5 +1,5 @@
 ---
-title: Notes
+title: Quartz
 ---
 
 Welcome. This is a personal knowledge base — notes, ideas, and things worth remembering.
