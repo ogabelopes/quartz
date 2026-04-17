@@ -1,0 +1,41 @@
+name: Deploy Production
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "quartz/**"
+      - "quartz.config.ts"
+      - "quartz.layout.ts"
+      - "package.json"
+      - "package-lock.json"
+      - "Dockerfile"
+      - "docker-compose.yml"
+      - ".github/workflows/deploy-prod.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux, x64]
+    environment: production
+    timeout-minutes: 15
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Deploy production stack
+        run: |
+          set -euo pipefail
+          docker compose up -d --build quartz
+          docker image prune -f

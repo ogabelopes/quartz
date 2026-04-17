@@ -1,0 +1,40 @@
+name: Deploy Development
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - "content/**"
+      - "quartz/**"
+      - "quartz.config.ts"
+      - "quartz.layout.ts"
+      - "package.json"
+      - "package-lock.json"
+      - "Dockerfile"
+      - "docker-compose.yml"
+      - ".github/workflows/deploy-dev.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-development
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux, x64]
+    environment: development
+    timeout-minutes: 15
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Deploy development stack
+        run: |
+          set -euo pipefail
+          docker compose up -d --build quartz-dev
