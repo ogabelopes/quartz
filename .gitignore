@@ -1,4 +1,5 @@
 .DS_Store
+content/homelab/
 .gitignore
 node_modules
 public

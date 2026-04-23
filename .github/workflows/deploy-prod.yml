@@ -13,6 +13,8 @@ on:
       - "Dockerfile"
       - "docker-compose.yml"
       - ".github/workflows/deploy-prod.yml"
+  schedule:
+    - cron: "0 4 * * *"
   workflow_dispatch:
 
 permissions:
@@ -33,6 +35,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+
+      - name: Sync homelab docs
+        run: bash scripts/sync-docs.sh
 
       - name: Deploy production stack
         run: |
