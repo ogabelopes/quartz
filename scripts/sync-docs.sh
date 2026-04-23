@@ -34,5 +34,6 @@ copy "automation/typebot/CLAUDE.md"         "typebot.md"
 copy "automation/directus/CLAUDE.md"        "directus.md"
 copy "automation/chatwoot/CLAUDE.md"        "chatwoot.md"
 copy "storage/paperless/CLAUDE.md"          "paperless.md"
+copy "media/immich/CLAUDE.md"              "immich.md"
 
 echo "Done. $(ls "$DEST" | wc -l) files in content/homelab/"
