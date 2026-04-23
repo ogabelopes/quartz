@@ -6,6 +6,7 @@ on:
     paths:
       - "content/**"
       - "quartz/**"
+      - "scripts/**"
       - "quartz.config.ts"
       - "quartz.layout.ts"
       - "package.json"
