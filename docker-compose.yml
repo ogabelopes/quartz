@@ -22,28 +22,6 @@ services:
     networks:
       - traefik
 
-  # ── quartz-dev (development) ──────────────────────────────────────────────────
-  quartz-dev:
-    container_name: quartz-dev
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.quartz-dev.rule=Host(`quartz-dev.gabelopes.com`)"
-      - "traefik.http.routers.quartz-dev.entrypoints=web,websecure"
-      - "traefik.http.services.quartz-dev.loadbalancer.server.port=3000"
-      - "wud.watch=true"
-      - "wud.tag.include=^latest$$"
-    networks:
-      - traefik
-
 networks:
   traefik:
     external: true
